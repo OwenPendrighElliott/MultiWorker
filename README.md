@@ -40,7 +40,7 @@ with MultiWorker(my_func, n_processes=8) as f:
 print(res)
 ```
 
-`res` will be a list of ints in this case, if you would like to reduce across all workers then you can pass a reducer:
+`res` will be a list of `ints` in this case, if you would like to reduce across all workers then you can pass a reducer:
 
 ```python
 from multiworker import MultiWorker
@@ -52,7 +52,7 @@ with MultiWorker(my_func, n_processes=8, reducer=sum) as f:
 print(res)
 ```
 
-`res` will not be an `int`.
+`res` will now be an `int`.
 
 The library also includes a reducer for flattening lists:
 
