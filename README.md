@@ -79,14 +79,15 @@ You can batch work on other parameters by specifying them in the constructor.
 from multiworker import MultiWorker, flatten_list
 
 def my_func(l1: List[int], l2: List[int]) -> int:
-    for i in range(len(l2))
+    for i in range(len(l2)):
         for el1 in l1:
             l2[i] += el1
     return l2
 
-arr = list(range(100))
+arr1 = list(range(100))
+arr2 = list(range(100))
 
 with MultiWorker(my_func, batched_arg='l2', n_processes=8, reducer=flatten_list) as f:
-    res = f(arr)
+    res = f(arr1, arr2)
 print(res)
 ```
