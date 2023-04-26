@@ -20,12 +20,9 @@ Take the following function:
 
 ```python
 from typing import List
-def my_func(arr: List[int]) -> int:
-    ans = 0
-    for el in arr:
-        for i in range(10):
-            ans += el*10
-    return ans
+
+def my_func(arr: List[int]) -> List[int]:
+    return [el*2 for el in arr]
 ```
 
 This can be simply split across multiple workers as follows:
@@ -40,43 +37,43 @@ with MultiWorker(my_func, n_processes=8) as f:
 print(res)
 ```
 
-`res` will be a list of `ints` in this case, if you would like to reduce across all workers then you can pass a reducer:
+`res` will be a list of lists of `ints` in this case, if you would like to reduce across all workers then you can pass a reduction:
 
 ```python
 from multiworker import MultiWorker
+from multiworker.reductions import flatten_reduction
 
 arr = list(range(100))
 
-with MultiWorker(my_func, n_processes=8, reducer=sum) as f:
+with MultiWorker(my_func, n_processes=8, reduction=flatten_reduction) as f:
     res = f(arr)
 print(res)
 ```
 
-`res` will now be an `int`.
+`res` will now a list of `int`.
 
-The library also includes a reducer for flattening lists:
+If you wanted to combine multiple reductions then you can use the reduction composition class
 
 ```python
-from multiworker import MultiWorker, flatten_list
+from multiworker import MultiWorker
+from multiworker.reductions import ReductionComposition, flatten_reduction, average_reduction
 
-def my_func(arr: List[int]) -> List[int]:
-    for i in range(len(arr)):
-        arr[i] += 1
-    return arr
+reductions = ReductionComposition([flatten_reduction, average_reduction])
 
-arr = list(range(100))
-
-with MultiWorker(my_func, n_processes=8, reducer=flatten_list) as f:
+with MultiWorker(my_func, n_processes=8, reduction=reductions) as f:
     res = f(arr)
 print(res)
 ```
+
+This makes res be a single `float`.
 
 ### Using other parameters
 
 You can batch work on other parameters by specifying them in the constructor.
 
 ```python
-from multiworker import MultiWorker, flatten_list
+from multiworker import MultiWorker
+from multiworker.reductions import flatten_reduction
 
 def my_func(l1: List[int], l2: List[int]) -> int:
     for i in range(len(l2)):
@@ -87,7 +84,51 @@ def my_func(l1: List[int], l2: List[int]) -> int:
 arr1 = list(range(100))
 arr2 = list(range(100))
 
-with MultiWorker(my_func, batched_arg='l2', n_processes=8, reducer=flatten_list) as f:
+with MultiWorker(my_func, batched_arg='l2', n_processes=8, reduction=flatten_reduction) as f:
     res = f(arr1, arr2)
 print(res)
 ```
+
+# Documentation
+
+## MultiWorker
+### parameters
++ `function` (`Callable`): The function to create the context for.
++ `n_processes` (`int`): The number of processes to spawn.
++ `batched_arg` (`str`, `optional`): The argument to batch on, if None the the first arg is used. Defaults to None.
++ `verbose` (`bool`, `optional`): Whether or not to print information about the processing. Defaults to False.
++ `reduction` (`Callable[[List[Any]], Any]`, `optional`): A reduction function to be applied across the outputs of the pool. Defaults to None.
+## Supported Reductions
++ `flatten_reduction`
++ `histogram_reduction`
++ `product_reduction`
++ `string concatenation_reduction`
++ `bitwise and_reduction`
++ `bitwise or_reduction`
++ `min_reduction`
++ `max_reduction`
+
+## Testing
+```
+pytest
+```
+
+## Formatting
+```
+black .
+```
+
+## How it works
+
+TL;DR it does a bunch of introspection.
+
+1. The args to your function are introspected.
+2. The `self` arg is remove if you passed it a method from a class.
+3. If no batched arg was specified then the first one is selected.
+4. All args are converted into kwargs using the introspected arg names and the `*args` provided.
+5. The size of the batched arg is calculated and the chunk sizes are derived.
+6. The arg is batched and batches of kwargs are created.
+7. A pool is created with a partial for a wrapper function that allows for the batching to occur on the kwargs. The last parameter to the wrapper is a callback to your function.
+8. A reduction is applied (if specified)
+9. Results are returned.
+10. When you leave the context the pools are joined and closed.

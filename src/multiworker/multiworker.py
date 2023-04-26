@@ -9,22 +9,6 @@ def _worker(kwargs, function: Callable) -> Any:
     return function(**kwargs)
 
 
-def flatten_list(lst: List[List[Any]]) -> List[Any]:
-    """
-    Flatten a list of lists into a single list.
-
-    Args:
-        lst (List[List[Any]]): A list of lists.
-
-    Returns:
-        List[Any]: A flattened list with the same ordering.
-    """
-    flattened = []
-    for sublist in lst:
-        flattened.extend(sublist)
-    return flattened
-
-
 class MultiWorker:
     def __init__(
         self,
@@ -32,7 +16,7 @@ class MultiWorker:
         n_processes: int,
         batched_arg: str = None,
         verbose: bool = False,
-        reducer: Callable[[List[Any]], Any] = None,
+        reduction: Callable[[List[Any]], Any] = None,
     ):
         """Create a multiprocessing context for functions
 
@@ -41,13 +25,13 @@ class MultiWorker:
             n_processes (int): The number of processes to spawn.
             batched_arg (str, optional): The argument to batch on, if None the the first arg is used. Defaults to None.
             verbose (bool, optional): Whether or not to print information about the processing. Defaults to False.
-            reducer (Callable[[List[Any]], Any], optional): A reducer function to be applied across the outputs of the pool. Defaults to None.
+            reduction (Callable[[List[Any]], Any], optional): A reduction function to be applied across the outputs of the pool. Defaults to None.
         """
         self.function = function
         self.batched_arg = batched_arg
         self.n_processes = n_processes
         self._verbose = verbose
-        self._reducer = reducer
+        self._reduction = reduction
         self.pool = multiprocessing.Pool(self.n_processes)
 
     def batchify(self, lst, chunk_size):
@@ -113,8 +97,8 @@ class MultiWorker:
             partial(_worker, function=self.function), batched_args
         )
 
-        if self._reducer:
-            func_outputs = self._reducer(func_outputs)
+        if self._reduction:
+            func_outputs = self._reduction(func_outputs)
 
         return func_outputs
 
