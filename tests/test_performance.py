@@ -1,4 +1,4 @@
-from multiworker import MultiWorker
+from workercontext import MultiWorker
 import pytest
 from typing import List, Union
 import time

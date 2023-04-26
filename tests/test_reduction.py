@@ -1,5 +1,5 @@
-from multiworker import MultiWorker
-from multiworker.reductions import (
+from workercontext import MultiWorker
+from workercontext.reductions import (
     ReductionComposition,
     flatten_reduction,
     sum_reduction,

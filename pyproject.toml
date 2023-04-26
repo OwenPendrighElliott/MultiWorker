@@ -1,5 +1,5 @@
 [project]
-name = "multiworker"
+name = "workercontext"
 version = "0.0.1"
 description = "A small package that provides a context to spin up multiple workers to execute a function"
 readme = "README.md"
