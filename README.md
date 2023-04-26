@@ -28,11 +28,11 @@ def my_func(arr: List[int]) -> List[int]:
 This can be simply split across multiple workers as follows:
 
 ```python
-from workercontext import workercontext
+from workercontext import MultiWorker
 
 arr = list(range(100))
 
-with workercontext(my_func, n_processes=8) as f:
+with MultiWorker(my_func, n_processes=8) as f:
     res = f(arr)
 print(res)
 ```
@@ -40,12 +40,12 @@ print(res)
 `res` will be a list of lists of `ints` in this case, if you would like to reduce across all workers then you can pass a reduction:
 
 ```python
-from workercontext import workercontext
+from workercontext import MultiWorker
 from workercontext.reductions import flatten_reduction
 
 arr = list(range(100))
 
-with workercontext(my_func, n_processes=8, reduction=flatten_reduction) as f:
+with MultiWorker(my_func, n_processes=8, reduction=flatten_reduction) as f:
     res = f(arr)
 print(res)
 ```
@@ -55,12 +55,12 @@ print(res)
 If you wanted to combine multiple reductions then you can use the reduction composition class
 
 ```python
-from workercontext import workercontext
+from workercontext import MultiWorker
 from workercontext.reductions import ReductionComposition, flatten_reduction, average_reduction
 
 reductions = ReductionComposition([flatten_reduction, average_reduction])
 
-with workercontext(my_func, n_processes=8, reduction=reductions) as f:
+with MultiWorker(my_func, n_processes=8, reduction=reductions) as f:
     res = f(arr)
 print(res)
 ```
@@ -72,7 +72,7 @@ This makes res be a single `float`.
 You can batch work on other parameters by specifying them in the constructor.
 
 ```python
-from workercontext import workercontext
+from workercontext import MultiWorker
 from workercontext.reductions import flatten_reduction
 
 def my_func(l1: List[int], l2: List[int]) -> int:
@@ -84,14 +84,14 @@ def my_func(l1: List[int], l2: List[int]) -> int:
 arr1 = list(range(100))
 arr2 = list(range(100))
 
-with workercontext(my_func, batched_arg='l2', n_processes=8, reduction=flatten_reduction) as f:
+with MultiWorker(my_func, batched_arg='l2', n_processes=8, reduction=flatten_reduction) as f:
     res = f(arr1, arr2)
 print(res)
 ```
 
 # Documentation
 
-## workercontext
+## MultiWorker
 ### parameters
 + `function` (`Callable`): The function to create the context for.
 + `n_processes` (`int`): The number of processes to spawn.

@@ -1,6 +1,6 @@
 [project]
 name = "workercontext"
-version = "0.0.2"
+version = "0.0.3"
 description = "A small package that provides a context to spin up multiple workers to execute a function"
 readme = "README.md"
 authors = [
