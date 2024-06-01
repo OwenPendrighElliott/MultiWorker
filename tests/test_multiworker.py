@@ -12,6 +12,7 @@ def short_list():
 def long_list():
     return list(range(1_000_000))
 
+
 def func_no_kwargs(l: List[int], a: int, b: int):
     for i in range(len(l)):
         l[i] = l[i] + a + b
@@ -39,15 +40,18 @@ def func_only_kwargs(l: List[int], a: int = 3, b: int = 5):
 def func_no_list(a, b, c):
     return a + b + c
 
+
 def func_no_annotations(l, a, b):
     for i in range(len(l)):
         l[i] = l[i] + a + b
     return l
 
+
 def func_annotations_list_last(a: int, b: int, l: List[int]):
     for i in range(len(l)):
         l[i] = l[i] + a + b
     return l
+
 
 def test_one_worker(short_list):
     with MultiWorker(func_no_kwargs, 1) as f:
@@ -61,6 +65,7 @@ def test_more_workers_than_elements(short_list):
         res = f(short_list, 1, 1)
     assert len(res) == len(short_list)
 
+
 def test_workers(short_list, long_list):
     with MultiWorker(func_no_kwargs, 4) as f:
         res = f(short_list, 1, 1)
@@ -72,17 +77,20 @@ def test_workers(short_list, long_list):
     assert res[0][0] == 2 and res[-1][-1] == 1_000_001
     assert sum(map(len, res)) == len(long_list)
 
+
 def test_no_annotations(short_list):
     with MultiWorker(func_no_annotations, 4) as f:
         res = f(short_list, 1, 1)
     assert res[0][0] == 3 and res[-1][-1] == 10
     assert sum(map(len, res)) == len(short_list)
 
+
 def test_annotations_list_last(short_list):
     with MultiWorker(func_annotations_list_last, 4) as f:
         res = f(1, 1, short_list)
     assert res[0][0] == 3 and res[-1][-1] == 10
     assert sum(map(len, res)) == len(short_list)
+
 
 def test_with_kwargs(short_list):
     with MultiWorker(func_kwargs, 4) as f:
