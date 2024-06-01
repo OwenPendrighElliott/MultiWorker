@@ -93,7 +93,6 @@ def test_composed(short_list):
 
 
 def test_string_concat(short_str_list):
-
     with MultiWorker(concat, 4, reduction=string_concatenation_reduction) as f:
         res = f(short_str_list)
     assert res == "".join(short_str_list)
