@@ -1,5 +1,8 @@
 # Multi-Worker Context
 
+[![test](https://github.com/owenpendrighelliott/MultiWorker/actions/workflows/test.yml/badge.svg)](https://github.com/owenpendrighelliott/MultiWorker/actions/workflows/test.yml)
+
+
 This is a small project that create a context in python which can spin up multiple workers to do a task.
 
 The only requirement is that a the function you want to give multiple workers to has only one argument that you would like to batch on. It is up to you to ensure that creating independant batches for multiple workers makes sense with this argument.
@@ -52,6 +55,26 @@ print(res)
 
 `res` will now a list of `int`.
 
+You can also parallelise functions without using the context manager:
+
+```python
+from workercontext import parallelise
+
+arr = list(range(100))
+
+res = parallelise(my_func, n_processes=8)(arr) # res is list of list of int
+```
+
+If you have type hints on your function then auto parallelise will guess the reduction to apply as well:
+
+```python
+from workercontext import auto_parallelise
+
+arr = list(range(100))
+
+res = auto_parallelise(my_func)(arr) # res is list of int
+```
+
 If you wanted to combine multiple reductions then you can use the reduction composition class
 
 ```python
@@ -87,6 +110,39 @@ arr2 = list(range(100))
 with MultiWorker(my_func, batched_arg='l2', n_processes=8, reduction=flatten_reduction) as f:
     res = f(arr1, arr2)
 print(res)
+```
+
+## Async MultiWorker
+
+There is also an asynchroneous version of the MultiWorker context that does the processing async (non-blocking). You can either have it be async or have it converge when the context is exited.
+
+```python
+from workercontext import MultiWorkerAsync
+
+arr = list(range(100))
+
+res = [] # this is where the result will go
+
+with MultiWorkerAsync(my_func, n_processes=8, return_container=res) as f:
+    f(arr)
+    # do other things
+
+print(res) # res is gaurenteed to be populated AFTER context is exited
+```
+
+Or you can have no blocking by not specify a return container:
+
+```python
+from workercontext import MultiWorkerAsync, parallelise_async
+
+arr = list(range(100))
+
+# as a context 
+with MultiWorkerAsync(my_func, n_processes=8) as f:
+    f(arr)
+
+# or as a function
+parallelise_async(my_func, n_processes=8)(arr)
 ```
 
 # Documentation

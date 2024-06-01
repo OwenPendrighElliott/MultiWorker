@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>workercontext.multiworker API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>workercontext.multiworker</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import multiprocessing
+from functools import partial
+import inspect
+from .reductions import (
+    flatten_reduction,
+    set_union_reduction,
+    dict_merge_reduction,
+    string_concatenation_reduction,
+)
+from typing import List, Any, Callable, Union
+
+
+def _worker(kwargs, function: Callable) -&gt; Any:
+    &#34;&#34;&#34;Helper to wrap a function for multiprocessing&#34;&#34;&#34;
+    return function(**kwargs)
+
+
+class MultiWorker:
+    def __init__(
+        self,
+        function: Callable,
+        n_processes: int,
+        batched_arg: str = None,
+        verbose: bool = False,
+        reduction: Callable[[List[Any]], Any] = None,
+    ):
+        &#34;&#34;&#34;Create a multiprocessing context for functions
+
+        Args:
+            function (Callable): The function to create the context for.
+            n_processes (int): The number of processes to spawn.
+            batched_arg (str, optional): The argument to batch on, if None the the first arg is used. Defaults to None.
+            verbose (bool, optional): Whether or not to print information about the processing. Defaults to False.
+            reduction (Callable[[List[Any]], Any], optional): A reduction function to be applied across the outputs of the pool. Defaults to None.
+        &#34;&#34;&#34;
+        self.function = function
+        self.batched_arg = batched_arg
+        self.n_processes = n_processes
+        self._verbose = verbose
+        self._reduction = reduction
+        self.pool = multiprocessing.Pool(self.n_processes)
+
+    def batchify(self, lst, chunk_size):
+        return [lst[i : i + chunk_size] for i in range(0, len(lst), chunk_size)]
+
+    def _batched_args(self, *args, **kwargs) -&gt; List[Any]:
+        &#34;&#34;&#34;Wrap any function in this batched version, converts all args into kwargs using introspection
+
+        Raises:
+            ValueError: If the batched args are not a list
+
+        Returns:
+            List[Any]: A list of outputs from each batch, ordered.
+        &#34;&#34;&#34;
+
+        # Introspect the args to the function
+        argspec = inspect.getfullargspec(self.function)
+        func_args = argspec.args
+
+        annotations = argspec.annotations
+
+        # if the first arg is self then drop it because it is provided by its class
+        if func_args[0] == &#34;self&#34;:
+            func_args = func_args[1:]
+
+        # if no batched arg is specified then try to determine it from the type hints or fall back to the first arg
+        if not self.batched_arg:
+            all_typed = all([arg in annotations for arg in func_args])
+            if not all_typed:
+                if self._verbose:
+                    print(
+                        f&#34;No batched arg specified and not all args are typed, defaulting to first arg: {func_args[0]}&#34;
+                    )
+                self.batched_arg = func_args[0]
+            else:
+                for arg in func_args:
+                    arg_type = annotations[arg]
+                    if isinstance(arg_type, list) or (
+                        hasattr(arg_type, &#34;__origin__&#34;) and arg_type.__origin__ == list
+                    ):
+                        self.batched_arg = arg
+                        if self._verbose:
+                            print(
+                                f&#34;Using argument type hints, automatically determined batched arg: {arg}&#34;
+                            )
+                        break
+
+        # convert all args to kwargs using introspected args
+        for i, arg in enumerate(args):
+            kwargs[func_args[i]] = arg
+
+        if not isinstance(kwargs[self.batched_arg], list):
+            raise ValueError(
+                f&#34;Batched arg {self.batched_arg} must be an instance of list&#34;
+            )
+
+        # get size of batched arg
+        arg_size = len(kwargs[self.batched_arg])
+
+        processes_to_use = min(self.n_processes, arg_size)
+
+        if self._verbose:
+            print(
+                f&#34;Executing {self.function.__name__} with {processes_to_use} workers evenly distributing work on parameter &#39;{self.batched_arg}&#39;&#34;
+            )
+
+        # calculate chunksize
+        chunk_size = arg_size // processes_to_use
+
+        if self._verbose:
+            print(f&#34;Workers will be assigned chunks of size {chunk_size}&#34;)
+
+        # convert the batched arg into batches
+        kwargs[self.batched_arg] = self.batchify(
+            kwargs[self.batched_arg], chunk_size=chunk_size
+        )
+
+        # create a list of kwargs with each batched_arg arg having a single batch
+        batched_args = []
+        for batch in kwargs[self.batched_arg]:
+            new_args = dict(kwargs)
+            new_args[self.batched_arg] = batch
+            batched_args.append(new_args)
+        return batched_args
+
+    def _batched_function(self, *args, **kwargs) -&gt; List[Any]:
+        batched_args = self._batched_args(*args, **kwargs)
+
+        # create a pool - the function is wrapped up in a worker so we can pool on all args
+        func_outputs = self.pool.map(
+            partial(_worker, function=self.function), batched_args
+        )
+
+        if self._reduction:
+            func_outputs = self._reduction(func_outputs)
+
+        return func_outputs
+
+    def __enter__(self) -&gt; Callable:
+        &#34;&#34;&#34;Creates a temporary multiprocessing context for a function
+
+        Returns:
+            Callable: Return a batched version of the function with multiprocessing
+        &#34;&#34;&#34;
+        return self._batched_function
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -&gt; None:
+        &#34;&#34;&#34;Close the pool when done&#34;&#34;&#34;
+        self.pool.close()
+        self.pool.join()
+
+
+class MultiWorkerAsync(MultiWorker):
+    &#34;&#34;&#34;
+    A special case of the MultiWorker that uses map_async instead of map to allow for async processing of the pool
+
+    This allows for async processing within the context and a gaurentee that at the end the end of the context
+    results will populate the return container
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        function: Callable,
+        n_processes: int,
+        batched_arg: str = None,
+        verbose: bool = False,
+        return_container: list = None,
+    ):
+        super().__init__(function, n_processes, batched_arg, verbose, None)
+
+        self.func_outputs = None
+        self.return_container = return_container
+
+    def _batched_function(self, *args, **kwargs) -&gt; None:
+        batched_args = self._batched_args(*args, **kwargs)
+
+        self.func_outputs = self.pool.map_async(
+            partial(_worker, function=self.function), batched_args
+        )
+
+    def __enter__(self) -&gt; Callable:
+        &#34;&#34;&#34;Creates a temporary multiprocessing context for a function
+
+        Returns:
+            Callable: Return a batched version of the function with multiprocessing
+        &#34;&#34;&#34;
+        return self._batched_function
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -&gt; None:
+        &#34;&#34;&#34;Close the pool when done and populate the return container if it is provided&#34;&#34;&#34;
+        results = self.func_outputs.get()
+        if self.return_container is not None:
+            for result in results:
+                self.return_container.append(result)
+
+        self.pool.close()
+        self.pool.join()
+
+
+def parallelise(
+    function: Callable,
+    n_processes: int,
+    batched_arg: str = None,
+    verbose: bool = False,
+    reduction: Callable[[List[Any]], Any] = None,
+) -&gt; Callable:
+    &#34;&#34;&#34;Parallelise a function without a context manager
+
+    Args:
+        function (Callable): The function to parallelise
+        n_processes (int): The number of processes to use
+        batched_arg (str, optional): The argument to batch on. Defaults to None.
+        verbose (bool, optional): Toggle verbose printing. Defaults to False.
+        reduction (Callable[[List[Any]], Any], optional): Reduction to apply to the output. Defaults to None.
+
+    Returns:
+        Callable: A parallelised function
+    &#34;&#34;&#34;
+    return MultiWorker(
+        function, n_processes, batched_arg, verbose, reduction
+    ).__enter__()
+
+
+def auto_parallelise(
+    function: Callable,
+) -&gt; Callable:
+    &#34;&#34;&#34;Automatically parallelise a function based on type hints. Works like
+    parallelise but automatically determines the return type and applies a reduction if possible.
+
+    Args:
+        function (Callable): The function to parallelise
+
+    Raises:
+        ValueError: raised if the function has no type hints
+        ValueError: raised if the function has no return type hint
+
+    Returns:
+        Callable: a parallelised function
+    &#34;&#34;&#34;
+
+    # automatically use the same number of processes as the number of cpus
+    n_processes = multiprocessing.cpu_count()
+
+    # introspect the function to determine the return type
+    argspec = inspect.getfullargspec(function)
+    if not argspec.annotations:
+        raise ValueError(&#34;Function must have type hints to use auto_parallelise&#34;)
+
+    annotations = argspec.annotations
+
+    if &#34;return&#34; not in annotations:
+        raise ValueError(
+            &#34;Function must have a return type hint to use auto_parallelise&#34;
+        )
+
+    return_type = annotations[&#34;return&#34;]
+    print(f&#34;Return type is annotated as {return_type}&#34;)
+
+    return_module = return_type.__module__
+
+    if return_module == &#34;typing&#34;:
+        return_type = return_type.__origin__
+
+    reduction = None
+    if return_type == list:
+        reduction = flatten_reduction
+        print(
+            &#34;Lists from each worker will be flattened into a single list with order preserved&#34;
+        )
+    elif return_type == set:
+        reduction = set_union_reduction
+        print(&#34;Sets from each worker will be unioned into a single set&#34;)
+    elif return_type == dict:
+        reduction = dict_merge_reduction
+        print(&#34;Dictionaries from each worker will be merged into a single dictionary&#34;)
+    elif return_type == str:
+        reduction = string_concatenation_reduction
+        print(
+            &#34;Strings from each worker will be concatenated into a single string with order preserved&#34;
+        )
+    else:
+        print(
+            f&#34;No reduction will be applied to the return type as we don&#39;t automatically know a smart thing to do for {return_type}&#34;
+        )
+
+    return parallelise(function, n_processes, verbose=True, reduction=reduction)
+
+
+def parallelise_async(
+    function: Callable, n_processes: int, batched_arg: str = None, verbose: bool = False
+) -&gt; Callable:
+    &#34;&#34;&#34;Create an async parallelised function
+
+    Args:
+        function (Callable): The function to parallelise
+        n_processes (int): The number of processes to use
+        batched_arg (str, optional): The argument to batch on. Defaults to None.
+        verbose (bool, optional): Toggle verbose logging. Defaults to False.
+
+    Returns:
+        Callable: A parallelised function
+    &#34;&#34;&#34;
+    return MultiWorkerAsync(function, n_processes, batched_arg, verbose).__enter__()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="workercontext.multiworker.auto_parallelise"><code class="name flex">
+<span>def <span class="ident">auto_parallelise</span></span>(<span>function: Callable) ‑> Callable</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Automatically parallelise a function based on type hints. Works like
+parallelise but automatically determines the return type and applies a reduction if possible.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>function</code></strong> :&ensp;<code>Callable</code></dt>
+<dd>The function to parallelise</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>raised if the function has no type hints</dd>
+<dt><code>ValueError</code></dt>
+<dd>raised if the function has no return type hint</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Callable</code></dt>
+<dd>a parallelised function</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def auto_parallelise(
+    function: Callable,
+) -&gt; Callable:
+    &#34;&#34;&#34;Automatically parallelise a function based on type hints. Works like
+    parallelise but automatically determines the return type and applies a reduction if possible.
+
+    Args:
+        function (Callable): The function to parallelise
+
+    Raises:
+        ValueError: raised if the function has no type hints
+        ValueError: raised if the function has no return type hint
+
+    Returns:
+        Callable: a parallelised function
+    &#34;&#34;&#34;
+
+    # automatically use the same number of processes as the number of cpus
+    n_processes = multiprocessing.cpu_count()
+
+    # introspect the function to determine the return type
+    argspec = inspect.getfullargspec(function)
+    if not argspec.annotations:
+        raise ValueError(&#34;Function must have type hints to use auto_parallelise&#34;)
+
+    annotations = argspec.annotations
+
+    if &#34;return&#34; not in annotations:
+        raise ValueError(
+            &#34;Function must have a return type hint to use auto_parallelise&#34;
+        )
+
+    return_type = annotations[&#34;return&#34;]
+    print(f&#34;Return type is annotated as {return_type}&#34;)
+
+    return_module = return_type.__module__
+
+    if return_module == &#34;typing&#34;:
+        return_type = return_type.__origin__
+
+    reduction = None
+    if return_type == list:
+        reduction = flatten_reduction
+        print(
+            &#34;Lists from each worker will be flattened into a single list with order preserved&#34;
+        )
+    elif return_type == set:
+        reduction = set_union_reduction
+        print(&#34;Sets from each worker will be unioned into a single set&#34;)
+    elif return_type == dict:
+        reduction = dict_merge_reduction
+        print(&#34;Dictionaries from each worker will be merged into a single dictionary&#34;)
+    elif return_type == str:
+        reduction = string_concatenation_reduction
+        print(
+            &#34;Strings from each worker will be concatenated into a single string with order preserved&#34;
+        )
+    else:
+        print(
+            f&#34;No reduction will be applied to the return type as we don&#39;t automatically know a smart thing to do for {return_type}&#34;
+        )
+
+    return parallelise(function, n_processes, verbose=True, reduction=reduction)</code></pre>
+</details>
+</dd>
+<dt id="workercontext.multiworker.parallelise"><code class="name flex">
+<span>def <span class="ident">parallelise</span></span>(<span>function: Callable, n_processes: int, batched_arg: str = None, verbose: bool = False, reduction: Callable[[List[Any]], Any] = None) ‑> Callable</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Parallelise a function without a context manager</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>function</code></strong> :&ensp;<code>Callable</code></dt>
+<dd>The function to parallelise</dd>
+<dt><strong><code>n_processes</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of processes to use</dd>
+<dt><strong><code>batched_arg</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The argument to batch on. Defaults to None.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Toggle verbose printing. Defaults to False.</dd>
+<dt><strong><code>reduction</code></strong> :&ensp;<code>Callable[[List[Any]], Any]</code>, optional</dt>
+<dd>Reduction to apply to the output. Defaults to None.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Callable</code></dt>
+<dd>A parallelised function</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parallelise(
+    function: Callable,
+    n_processes: int,
+    batched_arg: str = None,
+    verbose: bool = False,
+    reduction: Callable[[List[Any]], Any] = None,
+) -&gt; Callable:
+    &#34;&#34;&#34;Parallelise a function without a context manager
+
+    Args:
+        function (Callable): The function to parallelise
+        n_processes (int): The number of processes to use
+        batched_arg (str, optional): The argument to batch on. Defaults to None.
+        verbose (bool, optional): Toggle verbose printing. Defaults to False.
+        reduction (Callable[[List[Any]], Any], optional): Reduction to apply to the output. Defaults to None.
+
+    Returns:
+        Callable: A parallelised function
+    &#34;&#34;&#34;
+    return MultiWorker(
+        function, n_processes, batched_arg, verbose, reduction
+    ).__enter__()</code></pre>
+</details>
+</dd>
+<dt id="workercontext.multiworker.parallelise_async"><code class="name flex">
+<span>def <span class="ident">parallelise_async</span></span>(<span>function: Callable, n_processes: int, batched_arg: str = None, verbose: bool = False) ‑> Callable</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create an async parallelised function</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>function</code></strong> :&ensp;<code>Callable</code></dt>
+<dd>The function to parallelise</dd>
+<dt><strong><code>n_processes</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of processes to use</dd>
+<dt><strong><code>batched_arg</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The argument to batch on. Defaults to None.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Toggle verbose logging. Defaults to False.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Callable</code></dt>
+<dd>A parallelised function</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parallelise_async(
+    function: Callable, n_processes: int, batched_arg: str = None, verbose: bool = False
+) -&gt; Callable:
+    &#34;&#34;&#34;Create an async parallelised function
+
+    Args:
+        function (Callable): The function to parallelise
+        n_processes (int): The number of processes to use
+        batched_arg (str, optional): The argument to batch on. Defaults to None.
+        verbose (bool, optional): Toggle verbose logging. Defaults to False.
+
+    Returns:
+        Callable: A parallelised function
+    &#34;&#34;&#34;
+    return MultiWorkerAsync(function, n_processes, batched_arg, verbose).__enter__()</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="workercontext.multiworker.MultiWorker"><code class="flex name class">
+<span>class <span class="ident">MultiWorker</span></span>
+<span>(</span><span>function: Callable, n_processes: int, batched_arg: str = None, verbose: bool = False, reduction: Callable[[List[Any]], Any] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a multiprocessing context for functions</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>function</code></strong> :&ensp;<code>Callable</code></dt>
+<dd>The function to create the context for.</dd>
+<dt><strong><code>n_processes</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of processes to spawn.</dd>
+<dt><strong><code>batched_arg</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The argument to batch on, if None the the first arg is used. Defaults to None.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not to print information about the processing. Defaults to False.</dd>
+<dt><strong><code>reduction</code></strong> :&ensp;<code>Callable[[List[Any]], Any]</code>, optional</dt>
+<dd>A reduction function to be applied across the outputs of the pool. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultiWorker:
+    def __init__(
+        self,
+        function: Callable,
+        n_processes: int,
+        batched_arg: str = None,
+        verbose: bool = False,
+        reduction: Callable[[List[Any]], Any] = None,
+    ):
+        &#34;&#34;&#34;Create a multiprocessing context for functions
+
+        Args:
+            function (Callable): The function to create the context for.
+            n_processes (int): The number of processes to spawn.
+            batched_arg (str, optional): The argument to batch on, if None the the first arg is used. Defaults to None.
+            verbose (bool, optional): Whether or not to print information about the processing. Defaults to False.
+            reduction (Callable[[List[Any]], Any], optional): A reduction function to be applied across the outputs of the pool. Defaults to None.
+        &#34;&#34;&#34;
+        self.function = function
+        self.batched_arg = batched_arg
+        self.n_processes = n_processes
+        self._verbose = verbose
+        self._reduction = reduction
+        self.pool = multiprocessing.Pool(self.n_processes)
+
+    def batchify(self, lst, chunk_size):
+        return [lst[i : i + chunk_size] for i in range(0, len(lst), chunk_size)]
+
+    def _batched_args(self, *args, **kwargs) -&gt; List[Any]:
+        &#34;&#34;&#34;Wrap any function in this batched version, converts all args into kwargs using introspection
+
+        Raises:
+            ValueError: If the batched args are not a list
+
+        Returns:
+            List[Any]: A list of outputs from each batch, ordered.
+        &#34;&#34;&#34;
+
+        # Introspect the args to the function
+        argspec = inspect.getfullargspec(self.function)
+        func_args = argspec.args
+
+        annotations = argspec.annotations
+
+        # if the first arg is self then drop it because it is provided by its class
+        if func_args[0] == &#34;self&#34;:
+            func_args = func_args[1:]
+
+        # if no batched arg is specified then try to determine it from the type hints or fall back to the first arg
+        if not self.batched_arg:
+            all_typed = all([arg in annotations for arg in func_args])
+            if not all_typed:
+                if self._verbose:
+                    print(
+                        f&#34;No batched arg specified and not all args are typed, defaulting to first arg: {func_args[0]}&#34;
+                    )
+                self.batched_arg = func_args[0]
+            else:
+                for arg in func_args:
+                    arg_type = annotations[arg]
+                    if isinstance(arg_type, list) or (
+                        hasattr(arg_type, &#34;__origin__&#34;) and arg_type.__origin__ == list
+                    ):
+                        self.batched_arg = arg
+                        if self._verbose:
+                            print(
+                                f&#34;Using argument type hints, automatically determined batched arg: {arg}&#34;
+                            )
+                        break
+
+        # convert all args to kwargs using introspected args
+        for i, arg in enumerate(args):
+            kwargs[func_args[i]] = arg
+
+        if not isinstance(kwargs[self.batched_arg], list):
+            raise ValueError(
+                f&#34;Batched arg {self.batched_arg} must be an instance of list&#34;
+            )
+
+        # get size of batched arg
+        arg_size = len(kwargs[self.batched_arg])
+
+        processes_to_use = min(self.n_processes, arg_size)
+
+        if self._verbose:
+            print(
+                f&#34;Executing {self.function.__name__} with {processes_to_use} workers evenly distributing work on parameter &#39;{self.batched_arg}&#39;&#34;
+            )
+
+        # calculate chunksize
+        chunk_size = arg_size // processes_to_use
+
+        if self._verbose:
+            print(f&#34;Workers will be assigned chunks of size {chunk_size}&#34;)
+
+        # convert the batched arg into batches
+        kwargs[self.batched_arg] = self.batchify(
+            kwargs[self.batched_arg], chunk_size=chunk_size
+        )
+
+        # create a list of kwargs with each batched_arg arg having a single batch
+        batched_args = []
+        for batch in kwargs[self.batched_arg]:
+            new_args = dict(kwargs)
+            new_args[self.batched_arg] = batch
+            batched_args.append(new_args)
+        return batched_args
+
+    def _batched_function(self, *args, **kwargs) -&gt; List[Any]:
+        batched_args = self._batched_args(*args, **kwargs)
+
+        # create a pool - the function is wrapped up in a worker so we can pool on all args
+        func_outputs = self.pool.map(
+            partial(_worker, function=self.function), batched_args
+        )
+
+        if self._reduction:
+            func_outputs = self._reduction(func_outputs)
+
+        return func_outputs
+
+    def __enter__(self) -&gt; Callable:
+        &#34;&#34;&#34;Creates a temporary multiprocessing context for a function
+
+        Returns:
+            Callable: Return a batched version of the function with multiprocessing
+        &#34;&#34;&#34;
+        return self._batched_function
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -&gt; None:
+        &#34;&#34;&#34;Close the pool when done&#34;&#34;&#34;
+        self.pool.close()
+        self.pool.join()</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="workercontext.multiworker.MultiWorkerAsync" href="#workercontext.multiworker.MultiWorkerAsync">MultiWorkerAsync</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="workercontext.multiworker.MultiWorker.batchify"><code class="name flex">
+<span>def <span class="ident">batchify</span></span>(<span>self, lst, chunk_size)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def batchify(self, lst, chunk_size):
+    return [lst[i : i + chunk_size] for i in range(0, len(lst), chunk_size)]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="workercontext.multiworker.MultiWorkerAsync"><code class="flex name class">
+<span>class <span class="ident">MultiWorkerAsync</span></span>
+<span>(</span><span>function: Callable, n_processes: int, batched_arg: str = None, verbose: bool = False, return_container: list = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A special case of the MultiWorker that uses map_async instead of map to allow for async processing of the pool</p>
+<p>This allows for async processing within the context and a gaurentee that at the end the end of the context
+results will populate the return container</p>
+<p>Create a multiprocessing context for functions</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>function</code></strong> :&ensp;<code>Callable</code></dt>
+<dd>The function to create the context for.</dd>
+<dt><strong><code>n_processes</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of processes to spawn.</dd>
+<dt><strong><code>batched_arg</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The argument to batch on, if None the the first arg is used. Defaults to None.</dd>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether or not to print information about the processing. Defaults to False.</dd>
+<dt><strong><code>reduction</code></strong> :&ensp;<code>Callable[[List[Any]], Any]</code>, optional</dt>
+<dd>A reduction function to be applied across the outputs of the pool. Defaults to None.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultiWorkerAsync(MultiWorker):
+    &#34;&#34;&#34;
+    A special case of the MultiWorker that uses map_async instead of map to allow for async processing of the pool
+
+    This allows for async processing within the context and a gaurentee that at the end the end of the context
+    results will populate the return container
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        function: Callable,
+        n_processes: int,
+        batched_arg: str = None,
+        verbose: bool = False,
+        return_container: list = None,
+    ):
+        super().__init__(function, n_processes, batched_arg, verbose, None)
+
+        self.func_outputs = None
+        self.return_container = return_container
+
+    def _batched_function(self, *args, **kwargs) -&gt; None:
+        batched_args = self._batched_args(*args, **kwargs)
+
+        self.func_outputs = self.pool.map_async(
+            partial(_worker, function=self.function), batched_args
+        )
+
+    def __enter__(self) -&gt; Callable:
+        &#34;&#34;&#34;Creates a temporary multiprocessing context for a function
+
+        Returns:
+            Callable: Return a batched version of the function with multiprocessing
+        &#34;&#34;&#34;
+        return self._batched_function
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -&gt; None:
+        &#34;&#34;&#34;Close the pool when done and populate the return container if it is provided&#34;&#34;&#34;
+        results = self.func_outputs.get()
+        if self.return_container is not None:
+            for result in results:
+                self.return_container.append(result)
+
+        self.pool.close()
+        self.pool.join()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="workercontext.multiworker.MultiWorker" href="#workercontext.multiworker.MultiWorker">MultiWorker</a></li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="workercontext" href="index.html">workercontext</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="workercontext.multiworker.auto_parallelise" href="#workercontext.multiworker.auto_parallelise">auto_parallelise</a></code></li>
+<li><code><a title="workercontext.multiworker.parallelise" href="#workercontext.multiworker.parallelise">parallelise</a></code></li>
+<li><code><a title="workercontext.multiworker.parallelise_async" href="#workercontext.multiworker.parallelise_async">parallelise_async</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="workercontext.multiworker.MultiWorker" href="#workercontext.multiworker.MultiWorker">MultiWorker</a></code></h4>
+<ul class="">
+<li><code><a title="workercontext.multiworker.MultiWorker.batchify" href="#workercontext.multiworker.MultiWorker.batchify">batchify</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="workercontext.multiworker.MultiWorkerAsync" href="#workercontext.multiworker.MultiWorkerAsync">MultiWorkerAsync</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
