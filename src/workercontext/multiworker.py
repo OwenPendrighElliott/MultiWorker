@@ -84,7 +84,7 @@ class MultiWorker:
                                 f"Using argument type hints, automatically determined batched arg: {arg}"
                             )
                         break
-            
+
                 # if we still don't have a batched arg then raise an error
                 if not self.batched_arg:
                     raise ValueError(
