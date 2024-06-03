@@ -84,6 +84,12 @@ class MultiWorker:
                                 f"Using argument type hints, automatically determined batched arg: {arg}"
                             )
                         break
+            
+                # if we still don't have a batched arg then raise an error
+                if not self.batched_arg:
+                    raise ValueError(
+                        "No batched arg specified and no args are typed as lists, please specify a batched arg or check your type hints are correct"
+                    )
 
         # convert all args to kwargs using introspected args
         for i, arg in enumerate(args):

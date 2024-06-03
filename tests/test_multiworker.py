@@ -1,6 +1,6 @@
 from workercontext import MultiWorker
 import pytest
-from typing import List
+from typing import List, Dict
 
 
 @pytest.fixture
@@ -46,6 +46,10 @@ def func_no_annotations(l, a, b):
         l[i] = l[i] + a + b
     return l
 
+def func_wrong_annotations(l: Dict[str, int], a: int, b: int):
+    for i in range(len(l)):
+        l[i] = l[i] + a + b
+    return l
 
 def func_annotations_list_last(a: int, b: int, l: List[int]):
     for i in range(len(l)):
@@ -91,6 +95,15 @@ def test_annotations_list_last(short_list):
     assert res[0][0] == 3 and res[-1][-1] == 10
     assert sum(map(len, res)) == len(short_list)
 
+def test_wrong_annotations(short_list):
+    failed = False
+    try:
+        with MultiWorker(func_wrong_annotations, 4) as f:
+            _ = f(short_list, 1, 1)
+    except ValueError:
+        failed = True
+
+    assert failed
 
 def test_with_kwargs(short_list):
     with MultiWorker(func_kwargs, 4) as f:
